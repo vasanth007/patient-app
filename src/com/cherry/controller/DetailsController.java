@@ -18,8 +18,11 @@ public class DetailsController extends HttpServlet
 		{
 		 System.out.println("Servlet");
 			String name=req.getParameter("n1");
+			 System.out.println("Servlet");
 			String	age=req.getParameter("a1");	
+			 System.out.println("Servlet");
 			String disease=req.getParameter("d");
+			 System.out.println("Servlet");
 			String 	date=req.getParameter("d1");
 			Details.GetDetails(name,age,disease,date);
 			 resp.sendRedirect("DetailStored.html");
