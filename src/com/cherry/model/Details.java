@@ -31,6 +31,8 @@ public class Details
 			ps.setString(2,age);
 			ps.setString(3,disease);
 			System.out.println();
+			System.out.println();
+			System.out.println();
 			ps.setString(4,date);
 	        ps.executeUpdate();
 	        System.out.println("1231455312313");
