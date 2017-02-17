@@ -9,12 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 import com.cherry.connection.*;
@@ -22,12 +16,14 @@ import com.cherry.connection.*;
 
 public class Search 
 {
-	public static void GetSearch(String name, HttpServletResponse response) throws IOException
+	static String Details;
+
+	public static void GetSearch(String name) throws IOException
 	{
 	
 		Connection con=null;
 	PreparedStatement ps=null;
-	PrintWriter pw = response.getWriter();
+	//PrintWriter pw = response.getWriter();
 		
 		String qry="select * from patientapp.patient_details where pname=?";
 		 
@@ -40,19 +36,21 @@ public class Search
 				ps.setString(1, name);
 				System.out.println("aaaa");
 				ResultSet rs = ps.executeQuery();
+				System.out.println("in search");
 				if(rs.next())
 				{
 				String usr = rs.getString("pname");
 				int age=rs.getInt("age");
 				String disease=rs.getString("disease");
 				Date date = rs.getDate("date_of_check");
-				  pw.println("<html><body><h1>"+"name="+ usr +" "+"age="+age+" "+"disease="+disease+" "+"date_of_check="+date+" "+"</h1></body></html>");
+				 // pw.println("<html><body><h1>"+"name="+ usr +" "+"age="+age+" "+"disease="+disease+" "+"date_of_check="+date+" "+"</h1></body></html>");
 				 // pw.println("<html><body><h1>enter details <a href='/Patientapp/patdetails.html'> here</a></h1></body></html>");
+				Details="name="+ usr +" "+"age="+age+" "+"disease="+disease+" "+"date_of_check="+date+" ";
 				}
 				else
 				{
 					System.err.println("invalid user");
-					pw.println("<html><body><h1>"+"invalid user"+"</h1></body></html>");
+					//pw.println("<html><body><h1>"+"invalid user"+"</h1></body></html>");
 				}
 				
 		 
@@ -74,6 +72,11 @@ public class Search
 					e.printStackTrace();
 				}
 			}
+			
 
 		}
+	public static String getDetail()
+	{
+		return Details;
+	}
 }

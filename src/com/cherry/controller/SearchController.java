@@ -2,23 +2,37 @@ package com.cherry.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.cherry.model.Search;
 
-@WebServlet("/ser")
-public class SearchController extends HttpServlet
+@Path("/ser")
+public class SearchController
 {
-	protected void doPost(HttpServletRequest request,
-		    HttpServletResponse response)
-		        throws ServletException, IOException 
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	public Response doPost(@FormParam("t1") String name) throws IOException 
 	{
-		String name = request.getParameter("t1");
-		 Search.GetSearch(name, response);
+		//String name = request.getParameter("t1");
+		 Search.GetSearch(name);
+		 
+		 try{
+				java.net.URI location;
+				location = new java.net.URI("../Details.jsp");
+				return Response.temporaryRedirect(location).build();
+
+				} catch (URISyntaxException e) {
+				e.printStackTrace();
+
+				}
+		return null;
+		 
 	}
 }

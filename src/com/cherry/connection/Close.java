@@ -9,7 +9,8 @@ public class Close
  public static void CloseCon(Connection con, PreparedStatement ps) throws SQLException
  {
 	 System.out.println("connect");
-	 ps.close();
+	
 	 con.close();
+	 ps.close();
  }
 }

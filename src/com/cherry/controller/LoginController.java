@@ -1,36 +1,51 @@
 package com.cherry.controller;
 
-import java.io.IOException;
+import java.net.URISyntaxException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.cherry.model.*;
 
-@WebServlet("/log")
-public class LoginController extends HttpServlet 
+@Path("log")
+public class LoginController
 {
 		static String name_1;
 		
-		protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
-		{
-			String user = request.getParameter("n1");
-			String pass = request.getParameter("p1");
-			 HttpSession session = request.getSession();
-			    session.setAttribute("userName", user);
-			    String userName = (String) session.getAttribute("userName");
-			    System.out.println(userName);
-        Login.GetLogin(user,pass);
-        name_1=user;
-        response.sendRedirect("Weluser.jsp");
+		@POST
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+		public Response doPost(@FormParam("n1") String name,@FormParam("p1") String pass){
+		
+			System.out.println("inside login method");
+			Boolean loginStatus = Login.GetLogin(name,pass);
+			name_1=name;
+   
+		try{
+			java.net.URI location;
+			if(loginStatus){
+				location = new java.net.URI("../Weluser.jsp");
+			}else{
+				location = new java.net.URI("../Login.html");
+			}
+			
+			return Response.temporaryRedirect(location).build();
+
+			} catch (URISyntaxException e) {
+			e.printStackTrace();
+
+			}
+		return null;
 		}
 		public static String Get()
 		{
 			return name_1;
 			
 		}
+		
+		
+		
 }

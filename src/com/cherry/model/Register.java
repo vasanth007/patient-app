@@ -1,17 +1,9 @@
 package com.cherry.model;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import com.cherry.connection.*;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 public class Register
@@ -38,7 +30,7 @@ public class Register
 //
 //		  pw.println("<html><body><h1>login <a href='/Patients_app/Login.html'> here</a></h1></body></html>");
 	          
-			  
+			 
 		}
 	 
 		  catch (ClassNotFoundException e) 
