@@ -7,11 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import com.cherry.connection.*;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 
 public class Details 
@@ -30,9 +26,6 @@ public class Details
 			ps.setString(1,name);
 			ps.setString(2,age);
 			ps.setString(3,disease);
-			System.out.println();
-			System.out.println();
-			System.out.println();
 			ps.setString(4,date);
 	        ps.executeUpdate();
 	        System.out.println("1231455312313");

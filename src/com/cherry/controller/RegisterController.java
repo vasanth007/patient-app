@@ -1,31 +1,43 @@
 package com.cherry.controller;
 
-import java.io.IOException;
+import java.net.URISyntaxException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.cherry.model.*;
 
-@WebServlet("/reg")
-public class RegisterController extends HttpServlet
+@Path("reg")
+public class RegisterController
 {
-	static String name;	
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	public Response service(@FormParam("n1") String name,@FormParam("a1") String pass)  
+	  {
+		System.out.println("hi i am here ");
+		 Register.GetReg(name,pass);
+		 name_1=name;
+			try{
+				java.net.URI location;
+				location = new java.net.URI("../Reg.jsp");
+				return Response.temporaryRedirect(location).build();
+
+				} catch (URISyntaxException e) {
+				e.printStackTrace();
+
+				}
+			return null;
+	  }
+	
+	static String name_1;	
 	
 	public static String getName()
 	{
-		return name;
+		return name_1;
 	}
 	
-	 @Override
-	 protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-	  {
-		 name=req.getParameter("n1");
-		 String	pass=req.getParameter("a1");	
-		 Register.GetReg(name,pass);
-		 resp.sendRedirect("Reg.jsp");
-	  }
-	 
 }
